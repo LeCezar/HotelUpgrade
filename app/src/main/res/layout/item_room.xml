@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout>
+
+    <data class="ItemRoomBinding">
+
+        <variable
+            name="viewModel"
+            type="com.lecezar.hotelupgrade.models.Room" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/item_room_root"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/minimum_margin"
+        android:background="@drawable/background_rounded_corners_no_border"
+        android:clickable="true"
+        android:elevation="3dp"
+        android:focusable="true">
+
+        <TextView
+            android:id="@+id/item_room_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/default_margin"
+            android:layout_marginEnd="@dimen/extra_large_margin"
+            android:maxWidth="@dimen/room_text_max_width"
+            android:text="@{viewModel.name}"
+            android:textColor="@color/black"
+            android:textSize="32sp"
+            android:textStyle="bold"
+            android:transitionName="@{viewModel.name + `roomTextView`}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Room 13" />
+
+        <ImageView
+            android:id="@+id/item_room_icon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_hotel_room"
+            android:transitionName="@{viewModel.name + `roomImageView`}"
+            app:layout_constraintBottom_toBottomOf="@id/item_room_name"
+            app:layout_constraintEnd_toStartOf="@id/item_room_name"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/item_room_name" />
+
+        <TextView
+            android:id="@+id/item_room_occupation_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/default_margin"
+            android:layout_marginTop="@dimen/default_margin"
+            android:background="@drawable/background_rounded_corners"
+            android:paddingStart="@dimen/default_margin"
+            android:paddingTop="@dimen/minimum_margin"
+            android:paddingEnd="@dimen/default_margin"
+            android:paddingBottom="@dimen/minimum_margin"
+            android:text="@{viewModel.occupationStatus.status}"
+            android:textColor="@{viewModel.getColorForOccupationStatus(context)}"
+            android:textSize="10sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/item_room_name"
+            tools:text="OCCUPIED"
+            tools:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/item_room_cleaning_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/default_margin"
+            android:layout_marginTop="@dimen/minimum_margin"
+            android:layout_marginBottom="@dimen/default_margin"
+            android:background="@drawable/background_rounded_corners"
+            android:paddingStart="@dimen/default_margin"
+            android:paddingTop="@dimen/minimum_margin"
+            android:paddingEnd="@dimen/default_margin"
+            android:paddingBottom="@dimen/minimum_margin"
+            android:text="@{viewModel.cleaningStatus.status}"
+            android:textColor="@{viewModel.getColorForCleaningStatus(context)}"
+            android:textSize="10sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/item_room_occupation_status"
+            tools:text="NEEDS CLEANING" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="0dp"
+            app:layout_constraintGuide_percent="0.5" />
+
+        <LinearLayout
+            android:id="@+id/item_room_next_check_in"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/default_margin"
+            android:layout_marginTop="@dimen/default_margin"
+            android:layout_marginEnd="@dimen/default_margin"
+            android:layout_marginBottom="@dimen/default_margin"
+            android:background="@drawable/background_rounded_corners"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/guideline_center"
+            app:layout_constraintTop_toBottomOf="@id/item_room_name">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/default_margin"
+                android:layout_marginTop="@dimen/minimum_margin"
+                android:drawableEnd="@drawable/ic_baseline_event_24"
+                android:drawablePadding="@dimen/minimum_margin"
+                android:text="Next Check In"
+                android:textAllCaps="true"
+                android:textColor="@color/black"
+                android:textSize="14dp"
+                android:textStyle="normal" />
+
+            <TextView
+                android:id="@+id/item_room_next_check_in_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="@dimen/default_margin"
+                android:layout_marginTop="@dimen/minimum_margin"
+                android:textColor="@color/black"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                tools:text="28 Mar 21" />
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data class="AddRoomBinding">
+
+        <variable
+            name="viewModel"
+            type="com.lecezar.hotelupgrade.roomsFeature.addrooms.AddRoomFragmentVM" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:animateLayoutChanges="true">
+
+        <FrameLayout
+            android:id="@+id/add_room_icon_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/large_margin"
+            android:animateLayoutChanges="true"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/add_room_icon_1"
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginEnd="@dimen/large_margin"
+                android:src="@drawable/ic_hotel_room"
+                android:visibility="visible" />
+
+            <ImageView
+                android:id="@+id/add_room_icon_2"
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/ic_hotel_room" />
+
+            <ImageView
+                android:id="@+id/add_room_icon_3"
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="@dimen/large_margin"
+                android:src="@drawable/ic_hotel_room"
+                android:visibility="visible" />
+        </FrameLayout>
+
+        <RadioGroup
+            android:id="@+id/toggle_add_button"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/extra_large_margin"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="@dimen/large_margin"
+            android:layout_marginRight="50dp"
+            android:layout_marginBottom="@dimen/default_margin"
+            android:background="@drawable/default_out_line"
+            android:checkedButton="@+id/multiple_rooms_add_button"
+            android:elevation="4dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/add_room_icon_view">
+
+            <RadioButton
+                android:id="@+id/multiple_rooms_add_button"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/background_toggle_widget"
+                android:button="@null"
+                android:gravity="center"
+                android:text="Multiple Rooms"
+                android:textColor="@drawable/radio_group_selector_text_color" />
+
+            <RadioButton
+                android:id="@+id/one_room_add_button"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/background_toggle_widget"
+                android:button="@null"
+                android:gravity="center"
+                android:text="One Room"
+                android:textColor="@drawable/radio_group_selector_text_color" />
+        </RadioGroup>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/multiple_add_view_root"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/default_margin"
+            android:animateLayoutChanges="true"
+            android:visibility="visible"
+            app:layout_constraintBottom_toTopOf="@id/save_rooms_added_button"
+            app:layout_constraintTop_toBottomOf="@id/toggle_add_button">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/floor_text_layout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/default_margin"
+                android:layout_marginTop="@dimen/default_margin"
+                android:layout_marginEnd="@dimen/default_margin"
+                android:hint="Floor (opt)"
+                app:layout_constraintEnd_toStartOf="@id/from_room_text_layout"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:ignore="MissingConstraints">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/floor_text_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:text="@={viewModel.floorNumber}"
+                    android:textAlignment="center"
+                    android:textColor="@color/black" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/from_room_text_layout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/default_margin"
+                android:layout_marginTop="@dimen/default_margin"
+                android:layout_marginEnd="@dimen/default_margin"
+                android:hint="Start Room"
+                app:layout_constraintEnd_toStartOf="@id/to_room_text_layout"
+                app:layout_constraintStart_toEndOf="@id/floor_text_layout"
+                tools:ignore="MissingConstraints">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/from_room_text_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:text="@={viewModel.roomsStartNumber}"
+                    android:textAlignment="center"
+                    android:textColor="@color/black" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/to_room_text_layout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/default_margin"
+                android:layout_marginTop="@dimen/default_margin"
+                android:layout_marginEnd="@dimen/default_margin"
+                android:hint="End Room"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/from_room_text_layout"
+                tools:ignore="MissingConstraints">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/to_room_text_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:text="@={viewModel.roomsEndNumber}"
+                    android:textAlignment="center"
+                    android:textColor="@color/black" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/default_margin"
+                android:layout_marginTop="@dimen/default_margin"
+                android:textColor="@color/black"
+                android:textSize="17sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/select_rooms_button"
+                tools:text="Room numbers: 106-120" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/select_rooms_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_margin"
+                android:text="Select Rooms"
+                app:layout_constraintEnd_toEndOf="@id/to_room_text_layout"
+                app:layout_constraintTop_toBottomOf="@id/to_room_text_layout" />
+
+            <TextView
+                android:id="@+id/selected_intervals_text"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_margin="@dimen/default_margin"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/select_rooms_button"
+                tools:text="Rooms 106-120 will be added." />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/single_add_view_root"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/default_margin"
+            android:animateLayoutChanges="true"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@id/save_rooms_added_button"
+            app:layout_constraintTop_toBottomOf="@id/toggle_add_button">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/single_room_name_layout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/default_margin"
+                android:layout_marginStart="@dimen/default_margin"
+                android:layout_marginTop="@dimen/default_margin"
+                android:layout_marginEnd="@dimen/default_margin"
+                android:hint="Name (optional)"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/single_room_name_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:text="@={viewModel.singleRoomName}"
+                    android:textAlignment="center"
+                    android:textColor="@color/black" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/single_room_floor_layout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/default_margin"
+                android:layout_marginStart="@dimen/default_margin"
+                android:layout_marginTop="@dimen/default_margin"
+                android:layout_marginEnd="@dimen/default_margin"
+                android:hint="Floor (optional)"
+                app:layout_constraintEnd_toStartOf="@id/single_room_number_layout"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/single_room_name_layout">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/single_room_floor_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:text="@={viewModel.singleRoomFloor}"
+                    android:textAlignment="center"
+                    android:textColor="@color/black" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/single_room_number_layout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                validateRoomNumber="@{viewModel.singleRoomNumber}"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/default_margin"
+                android:layout_marginStart="@dimen/default_margin"
+                android:layout_marginTop="@dimen/default_margin"
+                android:layout_marginEnd="@dimen/default_margin"
+                android:hint="Number"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/single_room_floor_layout"
+                app:layout_constraintTop_toBottomOf="@id/single_room_name_layout">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/single_room_number_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:text="@={viewModel.singleRoomNumber}"
+                    android:textAlignment="center"
+                    android:textColor="@color/black" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/large_margin"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/single_room_floor_layout"
+                tools:text="Final room number: 106" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/save_rooms_added_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/default_margin"
+            android:text="Save Rooms"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

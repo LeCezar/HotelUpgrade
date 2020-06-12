@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools">
+
+    <data class="ItemBookingBinding">
+
+        <import type="com.lecezar.hotelupgrade.utils.HelperFunctionsDateKt" />
+
+        <variable
+            name="viewModel"
+            type="com.lecezar.hotelupgrade.models.Booking" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/item_booking_image"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="@dimen/default_margin"
+            android:layout_marginTop="@dimen/default_margin"
+            android:src="@drawable/ic_booking"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/item_booking_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/default_margin"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/item_booking_image"
+            app:layout_constraintEnd_toStartOf="@id/item_booking_arrow"
+            app:layout_constraintStart_toEndOf="@id/item_booking_image"
+            app:layout_constraintTop_toTopOf="@id/item_booking_image" />
+
+        <ImageView
+            android:id="@+id/item_booking_arrow"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="@dimen/minimum_margin"
+            android:layout_marginEnd="@dimen/minimum_margin"
+            android:src="@drawable/ic_arrow_right"
+            app:layout_constraintBottom_toBottomOf="@id/item_booking_image"
+            app:layout_constraintEnd_toStartOf="@id/item_booking_end"
+            app:layout_constraintStart_toEndOf="@id/item_booking_start"
+            app:layout_constraintTop_toTopOf="@id/item_booking_image" />
+
+        <TextView
+            android:id="@+id/item_booking_end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/default_margin"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/item_booking_image"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/item_booking_arrow"
+            app:layout_constraintTop_toTopOf="@id/item_booking_image"
+            tools:text="26 July" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/item_booking_guideline_start"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="56dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/item_booking_guideline_end"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="56dp" />
+
+        <ImageView
+            android:id="@+id/item_booking_room_image"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="@dimen/default_margin"
+            android:layout_marginTop="@dimen/large_margin"
+            android:padding="4dp"
+            android:src="@drawable/ic_hotel_room"
+            app:layout_constraintStart_toStartOf="@id/item_booking_guideline_start"
+            app:layout_constraintTop_toBottomOf="@id/item_booking_image" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/item_booking_item_room_small_recycler"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:layout_marginStart="@dimen/default_margin"
+            android:layout_marginEnd="@dimen/minimum_margin"
+            app:layout_constraintBottom_toBottomOf="@id/item_booking_room_image"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/item_booking_room_image"
+            app:layout_constraintTop_toTopOf="@id/item_booking_room_image">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+        <ImageView
+            android:id="@+id/item_booking_client_image"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="@dimen/default_margin"
+            android:layout_marginTop="@dimen/large_margin"
+            android:src="@drawable/ic_person"
+            app:layout_constraintStart_toStartOf="@id/item_booking_guideline_start"
+            app:layout_constraintTop_toBottomOf="@id/item_booking_room_image" />
+
+        <com.google.android.material.button.MaterialButton
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/default_margin"
+            android:padding="@dimen/minimum_margin"
+            android:text="@{viewModel.clientIdName.second}"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@id/item_booking_client_image"
+            app:layout_constraintStart_toEndOf="@id/item_booking_client_image"
+            app:layout_constraintTop_toTopOf="@id/item_booking_client_image" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="@dimen/large_margin"
+            android:layout_marginEnd="@dimen/large_margin"
+            android:background="@color/grey"
+            app:layout_constraintBottom_toBottomOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

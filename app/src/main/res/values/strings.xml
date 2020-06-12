@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Hotel Upgrade</string>
+    <string name="no_hotels_add_button_text">Let\'s change that!</string>
+    <string name="no_rooms_add_button_text">Let\'s add some!</string>
+    <string name="hotel_name_input_hint">Hotel Name</string>
+    <string name="occupation_status">Occupation status: %s</string>
+</resources>

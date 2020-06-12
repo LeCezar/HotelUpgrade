@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data class="BookingsFragmentBinding">
+
+        <variable
+            name="viewModel"
+            type="com.lecezar.hotelupgrade.utils.base.BaseViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/app_background"
+        android:orientation="vertical">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/bookings_action_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/minimum_margin"
+            android:layout_weight="0"
+            android:paddingBottom="@dimen/minimum_margin">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/bookings_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/bookings_action_bar_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/large_margin"
+                android:layout_marginTop="@dimen/minimum_margin"
+                android:text="Bookings"
+                android:textAppearance="@style/toolbar_title_style"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/bookings_toolbar" />
+
+            <ImageButton
+                android:id="@+id/bookings_add_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/default_margin"
+                android:background="@drawable/background_app_bar_icon"
+                android:padding="@dimen/minimum_margin"
+                android:src="@drawable/ic_add"
+                app:layout_constraintBottom_toBottomOf="@id/bookings_action_bar_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/bookings_action_bar_title"
+                tools:ignore="ContentDescription" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/bookings_tab_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/default_margin"
+            android:layout_marginEnd="@dimen/default_margin"
+            android:background="@drawable/background_tab_layout"
+            android:padding="1dp"
+            app:tabIndicator="@drawable/background_tab_layout_indicator"
+            app:tabIndicatorAnimationDuration="500"
+            app:tabIndicatorColor="@color/white"
+            app:tabIndicatorFullWidth="true"
+            app:tabIndicatorGravity="center"
+            app:tabTextAppearance="@style/tab_text_style"
+            app:tabTextColor="@color/black">
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Upcoming" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Past" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Clients" />
+
+
+        </com.google.android.material.tabs.TabLayout>
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/bookings_pager"
+
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+    </LinearLayout>
+</layout>

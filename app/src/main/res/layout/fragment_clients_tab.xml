@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout>
+
+    <data class="ClientsTabBinding">
+
+        <variable
+            name="viewModel"
+            type="com.lecezar.hotelupgrade.bookingFeature.bookingtabs.ClientsTabFragmentVM" />
+    </data>
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/app_background">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/default_margin"
+            app:cardCornerRadius="@dimen/default_corner_radius">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/clients_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <FrameLayout
+                android:id="@+id/no_clients_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:visibility="visible">
+
+                <ImageView
+                    android:id="@+id/no_clients_image_client"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_person"
+                    tools:ignore="ContentDescription" />
+
+                <ImageView
+                    android:id="@+id/no_clients_image_x"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_close_black_24dp"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="72dp"
+                    android:text="No clients!"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:textStyle="italic" />
+            </FrameLayout>
+        </androidx.cardview.widget.CardView>
+
+    </FrameLayout>
+</layout>

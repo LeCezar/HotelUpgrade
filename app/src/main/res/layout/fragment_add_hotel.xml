@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data class="AddHotelBinding">
+
+        <variable
+            name="viewModel"
+            type="com.lecezar.hotelupgrade.chooseHotelFeature.AddHotelVM" />
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/app_bar_add_hotel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/minimum_margin"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/add_hotel_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/large_margin"
+                android:layout_marginTop="@dimen/minimum_margin"
+                android:text="Add Hotel"
+                android:textAppearance="@style/toolbar_title_style"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/add_hotel_toolbar" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!--        <FrameLayout-->
+        <!--            android:id="@+id/hotel_image_add_root"-->
+        <!--            android:layout_width="0dp"-->
+        <!--            android:layout_height="120dp"-->
+        <!--            android:layout_margin="24dp"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+
+        <!--            app:layout_constraintTop_toTopOf="parent">-->
+
+        <!--            <ImageView-->
+        <!--                android:id="@+id/hotel_image_add_overlay"-->
+        <!--                android:layout_width="match_parent"-->
+        <!--                android:layout_height="match_parent"-->
+        <!--                android:tooltipText="Upload image"-->
+        <!--                tools:ignore="ContentDescription" />-->
+
+        <!--            <TextView-->
+        <!--                android:layout_width="wrap_content"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:layout_gravity="center"-->
+        <!--                android:text="Add image"-->
+        <!--                android:textAllCaps="true"-->
+        <!--                android:textColor="@color/white"-->
+        <!--                android:textSize="16sp"-->
+        <!--                android:textStyle="bold" />-->
+        <!--        </FrameLayout>-->
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/hotel_name_text_layout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/default_margin"
+            android:layout_marginTop="@dimen/default_margin"
+            android:layout_marginEnd="@dimen/default_margin"
+            android:hint="@string/hotel_name_input_hint"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/app_bar_add_hotel"
+            app:layout_constraintTop_toBottomOf="@id/app_bar_add_hotel"
+            app:startIconDrawable="@drawable/ic_hotel_black_24dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/hotel_name_text_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:text="@={viewModel.hotelName}"
+                android:textColor="@color/black" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <View
+            android:id="@+id/hotel_info_rooms_separator"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/minimum_margin"
+            android:layout_marginBottom="@dimen/minimum_margin"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/hotel_name_text_layout" />
+
+        <!--        <TextView-->
+        <!--            android:id="@+id/select_rooms_text"-->
+        <!--            style="@style/h3Text"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginTop="@dimen/default_margin"-->
+        <!--            android:text="Select rooms"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toBottomOf="@id/hotel_info_rooms_separator" />-->
+
+        <!--        <com.google.android.material.textfield.TextInputLayout-->
+        <!--            android:id="@+id/from_room_text_layout"-->
+        <!--            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"-->
+        <!--            android:layout_width="0dp"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginStart="@dimen/default_margin"-->
+        <!--            android:layout_marginEnd="@dimen/default_margin"-->
+        <!--            android:hint="From"-->
+        <!--            app:layout_constraintEnd_toStartOf="@id/to_room_text_layout"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toBottomOf="@id/select_rooms_text">-->
+
+        <!--            <com.google.android.material.textfield.TextInputEditText-->
+        <!--                android:id="@+id/from_room_text_input"-->
+        <!--                android:layout_width="match_parent"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:inputType="number"-->
+        <!--                android:text="@={viewModel.roomsStartNumber}"-->
+        <!--                android:textAlignment="center"-->
+        <!--                android:textColor="@color/black" />-->
+        <!--        </com.google.android.material.textfield.TextInputLayout>-->
+
+        <!--        <com.google.android.material.textfield.TextInputLayout-->
+        <!--            android:id="@+id/to_room_text_layout"-->
+        <!--            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"-->
+        <!--            android:layout_width="0dp"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginStart="@dimen/default_margin"-->
+        <!--            android:layout_marginEnd="@dimen/default_margin"-->
+        <!--            android:hint="To"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintStart_toEndOf="@id/from_room_text_layout"-->
+        <!--            app:layout_constraintTop_toBottomOf="@id/select_rooms_text">-->
+
+        <!--            <com.google.android.material.textfield.TextInputEditText-->
+        <!--                android:id="@+id/to_room_text_input"-->
+        <!--                android:layout_width="match_parent"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:inputType="number"-->
+        <!--                android:text="@={viewModel.roomsEndNumber}"-->
+        <!--                android:textAlignment="center"-->
+        <!--                android:textColor="@color/black" />-->
+        <!--        </com.google.android.material.textfield.TextInputLayout>-->
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/save_hotel_added_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/default_margin"
+            android:text="Save"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

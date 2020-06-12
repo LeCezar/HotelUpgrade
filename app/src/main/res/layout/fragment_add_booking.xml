@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data class="AddBookingBinding">
+
+        <variable
+            name="viewModel"
+            type="com.lecezar.hotelupgrade.bookingFeature.addbooking.AddBookingFragmentVM" />
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/app_background"
+        android:orientation="vertical">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/add_booking_action_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/minimum_margin"
+            android:layout_weight="0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/add_booking_toolbar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:navigationIcon="@drawable/ic_baseline_arrow" />
+
+            <TextView
+                android:id="@+id/add_booking_action_bar_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/large_margin"
+                android:layout_marginTop="@dimen/minimum_margin"
+                android:text="Add Booking"
+                android:textAppearance="@style/toolbar_title_style"
+                android:textSize="24sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/add_booking_toolbar" />
+
+            <Button
+
+                android:id="@+id/add_booking_save_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/default_margin"
+                android:background="@drawable/background_app_bar_icon"
+                android:enabled="@{viewModel.dateErrorState ? false : true}"
+                android:text="@{viewModel.dateErrorState ? `Dates invalid` : `Save`}"
+                app:layout_constraintBottom_toBottomOf="@id/add_booking_action_bar_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/add_booking_action_bar_title"
+                tools:ignore="ContentDescription" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/default_margin"
+            android:layout_weight="1"
+            app:cardCornerRadius="@dimen/default_corner_radius">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:animateLayoutChanges="true">
+
+                <TextView
+                    android:id="@+id/add_booking_start_date_text_button"
+                    android:layout_width="176dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/default_margin"
+                    android:background="?attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:drawableStart="@drawable/ic_flight_land"
+                    android:drawablePadding="4dp"
+                    android:focusable="true"
+                    android:foreground="@drawable/background_rounded_corners_transparent"
+                    android:hint="Start Date"
+                    android:padding="@dimen/default_margin"
+                    android:textAlignment="center"
+                    android:textAppearance="?android:attr/textAppearanceMediumInverse"
+                    android:textColor="?attr/editTextColor"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toStartOf="@id/add_booking_end_date_text_button"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/add_booking_end_date_text_button"
+                    android:layout_width="176dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/default_margin"
+                    android:background="?attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:drawableStart="@drawable/ic_flight_takeoff"
+                    android:drawablePadding="4dp"
+                    android:focusable="true"
+                    android:foreground="@drawable/background_rounded_corners_transparent"
+                    android:hint="End Date"
+                    android:padding="@dimen/default_margin"
+                    android:textAlignment="center"
+                    android:textAppearance="?android:attr/textAppearanceMediumInverse"
+                    android:textColor="?attr/editTextColor"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/add_booking_start_date_text_button"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/add_booking_client_name_layout"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    errorText="Invalid name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/default_margin"
+                    android:layout_marginTop="@dimen/default_margin"
+                    android:layout_marginEnd="@dimen/default_margin"
+                    android:hint="Client name"
+                    app:errorEnabled="@{viewModel.clientNameErrorState}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/add_booking_start_date_text_button"
+                    app:startIconDrawable="@drawable/ic_person"
+                    tools:ignore="MissingConstraints">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/add_booking_client_name_input"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text"
+                        android:text="@={viewModel.clientName}"
+                        android:textColor="@color/black"
+                        tools:text="Olteanu Codrin" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/add_booking_client_phone_layout"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    errorText="Invalid phone number"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/default_margin"
+                    android:layout_marginTop="@dimen/default_margin"
+                    android:layout_marginEnd="@dimen/default_margin"
+                    android:hint="Client phone number"
+                    app:errorEnabled="@{viewModel.phoneNumberErrorState}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/add_booking_client_name_layout"
+                    app:startIconDrawable="@drawable/ic_phone"
+                    tools:ignore="MissingConstraints">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/add_booking_client_phone_input"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
+                        android:text="@={viewModel.phoneNumber}"
+                        android:textColor="@color/black"
+                        tools:text="0757668270" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/add_booking_rooms_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/minimum_margin"
+                    android:layout_marginTop="@dimen/minimum_margin"
+                    android:padding="@dimen/minimum_margin"
+                    android:text="Choose rooms:"
+                    android:textAppearance="@style/tab_text_style"
+                    android:textSize="24sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/add_booking_client_phone_layout" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/add_booking_choose_rooms_recycler"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="@dimen/default_margin"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/add_booking_rooms_text" />
+
+                <TextView
+                    android:id="@+id/add_booking_no_rooms_available_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{viewModel.dateErrorState ? `Invalid dates` : `No room available in chosen dates!`}"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:textStyle="italic"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/add_booking_rooms_text" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
+</layout>

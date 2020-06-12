@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data class="ItemRoomSmallBinding">
+
+        <variable
+            name="viewModel"
+            type="kotlin.Pair&lt;String,String>" />
+    </data>
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/item_small_room_root"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_marginTop="@dimen/minimum_margin"
+        android:layout_marginEnd="@dimen/minimum_margin"
+        android:background="@drawable/background_rounded_corners"
+        android:clickable="true"
+        android:focusable="true">
+
+        <TextView
+            android:id="@+id/item_room_small_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="4dp"
+            android:text="@{viewModel.second}"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+    </FrameLayout>
+</layout>

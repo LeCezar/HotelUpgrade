@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data class="ItemEventBinding">
+
+        <variable
+            name="viewModel"
+            type="com.lecezar.hotelupgrade.models.Event" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/default_margin"
+        android:background="@drawable/background_rounded_corners">
+
+        <ImageView
+            android:id="@+id/item_event_icon"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:layout_marginStart="@dimen/default_margin"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/ic_flight_land" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/minimum_margin"
+            android:layout_marginBottom="@dimen/minimum_margin"
+            android:background="@drawable/background_rounded_corners"
+            android:padding="@dimen/minimum_margin"
+            android:text="@{viewModel.eventType.eventType}"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/item_event_icon"
+            app:layout_constraintStart_toStartOf="@id/item_event_icon"
+            app:layout_constraintTop_toBottomOf="@id/item_event_icon"
+            tools:text="Check in" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/item_events_room_small_recycler_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/large_margin"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/item_event_icon"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

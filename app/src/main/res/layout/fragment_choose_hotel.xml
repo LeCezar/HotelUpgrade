@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data class="ChooseHotelBinding">
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="com.lecezar.hotelupgrade.chooseHotelFeature.ChooseHotelVM" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:animateLayoutChanges="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/choose_hotel_action_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/minimum_margin"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/choose_hotel_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/large_margin"
+                android:layout_marginTop="@dimen/minimum_margin"
+                android:text="Choose Hotel"
+                android:textAppearance="@style/toolbar_title_style"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/choose_hotel_toolbar" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/hotels_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/choose_hotel_action_bar" />
+        <!--            android:visibility="@{chooseHotelVM.hotelList.size() > 0 ? View.VISIBLE : View.GONE}" />-->
+
+        <FrameLayout
+            android:id="@+id/no_hotels_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone">
+            <!--            android:visibility="@{chooseHotelVM.hotelList.size() > 0 ? View.GONE : View.VISIBLE}">-->
+
+            <ImageView
+                android:id="@+id/no_hotels_image"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_close_black_24dp"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="72dp"
+                android:text="No hotels added!"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="italic" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/no_hotels_add_button"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|center"
+                android:layout_marginBottom="32dp"
+                android:text="@string/no_hotels_add_button_text"
+                app:shapeAppearance="@style/ShapeAppearance.MaterialComponents.MediumComponent" />
+        </FrameLayout>
+
+
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/add_hotel_action_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="32dp"
+            android:text="Add hotel"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:visibility="gone"
+            app:icon="@drawable/ic_add"
+            app:iconSize="32dp"
+            app:iconTint="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

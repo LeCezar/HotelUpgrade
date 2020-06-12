@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "999496452519",
+    "firebase_url": "https://hotel-upgrade-ae331.firebaseio.com",
+    "project_id": "hotel-upgrade-ae331",
+    "storage_bucket": "hotel-upgrade-ae331.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:999496452519:android:9c45a9cd0c37b49ffcce82",
+        "android_client_info": {
+          "package_name": "com.lecezar.hotelupgrade"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "999496452519-1d7l6sb5aorm1a1qg8ntngmijef9fqsm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCL9ymu6cxpafC3n5SwD8B_UcMAYeDYAA0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "999496452519-1d7l6sb5aorm1a1qg8ntngmijef9fqsm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
