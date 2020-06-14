@@ -2,6 +2,7 @@ package com.lecezar.hotelupgrade.bookingFeature.bookingtabs
 
 import android.view.View
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.lecezar.hotelupgrade.MainActivity
 import com.lecezar.hotelupgrade.R
@@ -10,6 +11,8 @@ import com.lecezar.hotelupgrade.bookingFeature.BookingsFragment
 import com.lecezar.hotelupgrade.databinding.BookingsTabBinding
 import com.lecezar.hotelupgrade.models.Booking
 import com.lecezar.hotelupgrade.utils.base.BaseFragment
+import com.lecezar.hotelupgrade.utils.base.RecycleItemTouchHelper
+import com.lecezar.hotelupgrade.utils.makeToast
 import kotlinx.android.synthetic.main.fragment_bookings_tab.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import kotlin.properties.Delegates
@@ -60,6 +63,16 @@ class BookingsTabFragment : BaseFragment<BookingsTabBinding, BookingsTabFragment
                 (activity as MainActivity).navigateFromBookingsFragmentToRoomDetails(it)
             }
         }
+        ItemTouchHelper(RecycleItemTouchHelper {
+            (bookings_recycler_view?.adapter as BookingsAdapter).apply {
+                viewModel.deleteBooking(this.getItemAt(it).id) {
+                    onSuccess = {
+                        makeToast(this@BookingsTabFragment.requireContext(), "Deleted Booking!")
+                    }
+                    onFailure = {}
+                }
+            }
+        }).attachToRecyclerView(bookings_recycler_view)
     }
 
     private fun addItemsToRecyclerView(bookings: List<Booking>) {

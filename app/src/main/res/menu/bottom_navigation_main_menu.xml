@@ -16,4 +16,9 @@
         android:icon="@drawable/ic_booking"
         android:title="Bookings" />
 
+    <item
+        android:id="@+id/calendarFragment"
+        android:icon="@drawable/ic_baseline_calendar_view"
+        android:title="Calendar" />
+
 </menu>

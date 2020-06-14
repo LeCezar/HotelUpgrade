@@ -2,11 +2,11 @@
 
 <layout xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <data class="LoginFragmentBinding">
+    <data class="RegisterFragmentBinding">
 
         <variable
             name="viewModel"
-            type="com.lecezar.hotelupgrade.loginFeature.LoginFragmentVM" />
+            type="com.lecezar.hotelupgrade.loginFeature.registerFeature.RegisterFragmentVM" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -14,11 +14,11 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/welcome_text"
+            android:id="@+id/register_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/extra_large_margin"
-            android:text="Welcome to your \nHotel Upgrade!"
+            android:text="Register your account!"
             android:textAlignment="center"
             android:textAppearance="@style/toolbar_title_style"
             app:layout_constraintEnd_toEndOf="parent"
@@ -26,7 +26,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/login_email_layout"
+            android:id="@+id/register_email_layout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -36,11 +36,11 @@
             android:hint="Email"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/welcome_text"
+            app:layout_constraintTop_toBottomOf="@id/register_text"
             app:startIconDrawable="@drawable/ic_email">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/login_email_text"
+                android:id="@+id/register_email_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"
@@ -49,7 +49,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/login_password_layout"
+            android:id="@+id/register_password_layout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -59,11 +59,11 @@
             android:hint="Password"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/login_email_layout"
+            app:layout_constraintTop_toBottomOf="@id/register_email_layout"
             app:startIconDrawable="@drawable/ic_password">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/login_password_text"
+                android:id="@+id/register_password_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
@@ -71,37 +71,38 @@
                 android:textColor="@color/black" />
         </com.google.android.material.textfield.TextInputLayout>
 
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/register_password_check_layout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/large_margin"
+            android:layout_marginTop="@dimen/default_margin"
+            android:layout_marginEnd="@dimen/large_margin"
+            android:hint="Repeat password"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/register_password_layout"
+            app:startIconDrawable="@drawable/ic_password">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/register_password_check_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:text="@={viewModel.checkPassword}"
+                android:textColor="@color/black" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/login_fragment_register_button"
-            style="?attr/materialButtonOutlinedStyle"
+            android:id="@+id/register_fragment_register_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/default_margin"
             android:text="Register"
-            app:layout_constraintEnd_toEndOf="@id/login_password_layout"
-            app:layout_constraintTop_toBottomOf="@id/login_password_layout" />
-
-
-        <com.google.android.gms.common.SignInButton
-            android:id="@+id/sing_in_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/minimum_margin"
-            app:layout_constraintBottom_toTopOf="@id/sign_in_button_email"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/sign_in_button_email"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/minimum_margin"
-            android:text="Sign in with email"
-            android:textAllCaps="false"
-            android:textStyle="normal"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintEnd_toEndOf="@id/register_password_check_layout"
+            app:layout_constraintTop_toBottomOf="@id/register_password_check_layout" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -2,6 +2,10 @@ package com.lecezar.hotelupgrade.models
 
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.DocumentSnapshot
+import com.lecezar.hotelupgrade.utils.getDayAsInt
+import com.lecezar.hotelupgrade.utils.getMonthAsInt
+import com.lecezar.hotelupgrade.utils.getYearAsInt
+import org.threeten.bp.LocalDate
 import java.util.*
 
 data class Event(
@@ -13,6 +17,9 @@ data class Event(
     val eventType: EventType
 ) {
 
+    fun triggerDateToLocalDate():LocalDate{
+        return LocalDate.of(this.triggerDate.getYearAsInt(),this.triggerDate.getMonthAsInt(),this.triggerDate.getDayAsInt())
+    }
 
     companion object {
 

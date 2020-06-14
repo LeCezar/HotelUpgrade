@@ -2,11 +2,13 @@ package com.lecezar.hotelupgrade.repositories
 
 import androidx.databinding.Observable
 import androidx.databinding.ObservableField
+import androidx.lifecycle.LifecycleOwner
 import com.google.firebase.firestore.FirebaseFirestoreException
 import com.lecezar.hotelupgrade.GlobalVariables
 import com.lecezar.hotelupgrade.models.Client
 import com.lecezar.hotelupgrade.utils.base.FirebaseRepository
 import com.lecezar.hotelupgrade.utils.binding.CallbackKt
+import com.lecezar.hotelupgrade.utils.binding.addSnapshotLifecycleAwareListener
 
 class ClientRepository : FirebaseRepository() {
     private var path: String = "/temp"
@@ -60,6 +62,27 @@ class ClientRepository : FirebaseRepository() {
                 }
             }
         }
+    }
+
+    fun subscribeListenerForAllClients(
+        lifecycleOwner: LifecycleOwner,
+        callbackKt: CallbackKt<List<Client>>.() -> Unit
+    ) {
+        firestore.collection(pathWithUser).addSnapshotLifecycleAwareListener(
+            "allClients", firebaseListenerManager, lifecycleOwner,
+            onSuccess = { snapshot ->
+                val clientList = mutableListOf<Client>()
+                snapshot.documents.forEach { docSnapshot ->
+                    clientList.add(Client.fromDocument(docSnapshot))
+                }
+                CallbackKt(callbackKt, clientList)
+            },
+            onError = { exception ->
+                exception?.also {
+                    CallbackKt(callbackKt, it)
+                }
+            }
+        )
     }
 
 }

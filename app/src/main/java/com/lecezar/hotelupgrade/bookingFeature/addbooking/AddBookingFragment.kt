@@ -102,7 +102,7 @@ class AddBookingFragment : BaseFragment<AddBookingBinding, AddBookingFragmentVM>
                         onSuccess = {
                             makeToast(this@AddBookingFragment.requireContext(), it)
                             saveButtonPressed = false
-                            viewModel.fetchAvailableRoomsList()
+                            view?.findNavController()?.navigate(AddBookingFragmentDirections.actionAddBookingFragmentToBookingsFragment())
                         }
                         onFailure = {
                             makeToast(this@AddBookingFragment.requireContext(), it.message ?: "Failed adding booking")

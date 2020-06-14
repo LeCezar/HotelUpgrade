@@ -84,6 +84,7 @@
             android:textColor="@{viewModel.getColorForCleaningStatus(context)}"
             android:textSize="10sp"
             android:textStyle="bold"
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/item_room_occupation_status"

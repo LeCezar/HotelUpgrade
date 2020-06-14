@@ -23,5 +23,10 @@
     <color name="app_background">#F3F3F3</color>
     <color name="shadowy_grey">#D0D0D0</color>
 
+    <color name="checkin">#9C27B0</color>
+    <color name="checkout">#FF5722</color>
+
+    <color name="red_button">#F44336</color>
+    <color name="yellowish_button">#FFC107</color>
 
 </resources>

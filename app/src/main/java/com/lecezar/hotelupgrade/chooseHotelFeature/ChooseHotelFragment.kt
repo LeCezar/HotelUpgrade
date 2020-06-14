@@ -1,29 +1,30 @@
 package com.lecezar.hotelupgrade.chooseHotelFeature
 
-import android.util.Log
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.work.ExistingPeriodicWorkPolicy
+import androidx.work.PeriodicWorkRequestBuilder
+import androidx.work.WorkManager
+import androidx.work.workDataOf
 import com.lecezar.hotelupgrade.GlobalVariables
 import com.lecezar.hotelupgrade.MainActivity
 import com.lecezar.hotelupgrade.R
 import com.lecezar.hotelupgrade.databinding.ChooseHotelBinding
 import com.lecezar.hotelupgrade.models.Hotel
 import com.lecezar.hotelupgrade.utils.base.BaseFragment
+import com.lecezar.hotelupgrade.workmanager.UpdateRoomStatuses
 import kotlinx.android.synthetic.main.fragment_choose_hotel.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.util.concurrent.TimeUnit
 
 
 class ChooseHotelFragment : BaseFragment<ChooseHotelBinding, ChooseHotelVM>(R.layout.fragment_choose_hotel) {
     override val viewModel: ChooseHotelVM by viewModel()
 
-    //TODO 1: modify the app so that the slash screen is an activity
-    //TODO 2: Navigation in the app should be managed by the main activity (add a search bar to it,bottom nav bar)
-
 
     override fun setupViews() {
-//        view?.findNavController()?.popBackStack(R.id.splashFragment, false)
         setUpRecyclerView()
         setUpClickListeners()
         viewModel.hotelList.observe(this, Observer {
@@ -56,12 +57,25 @@ class ChooseHotelFragment : BaseFragment<ChooseHotelBinding, ChooseHotelVM>(R.la
     private fun setUpRecyclerView() {
         hotels_recycler_view.apply {
             adapter = HotelsAdapter {
+                setUpWorkerForTheChosenHotel(it.id)
                 GlobalVariables.currentHotelId.set(it.id)
                 view?.findNavController()?.navigate(ChooseHotelFragmentDirections.actionChooseHotelFragmentToEventsFragment())
-                Log.d("Hotel clicked: ", it.name)
             }
             layoutManager = LinearLayoutManager(this@ChooseHotelFragment.context)
         }
+    }
+
+    private fun setUpWorkerForTheChosenHotel(hotelId: String) {
+        val updateRoomStatusesWorker = PeriodicWorkRequestBuilder<UpdateRoomStatuses>(6, TimeUnit.HOURS)
+            .setInitialDelay(1, TimeUnit.MINUTES)
+            .addTag(hotelId)
+            .setInputData(
+                workDataOf(
+                    "HOTEL_ID" to hotelId
+                )
+            )
+            .build()
+        WorkManager.getInstance(this.requireContext()).enqueueUniquePeriodicWork(hotelId, ExistingPeriodicWorkPolicy.KEEP, updateRoomStatusesWorker)
     }
 
     private fun showHotelsView() {

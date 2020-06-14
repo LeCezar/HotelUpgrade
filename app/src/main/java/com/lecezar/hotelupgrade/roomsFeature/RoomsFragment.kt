@@ -24,6 +24,7 @@ class RoomsFragment : BaseFragment<RoomsFragmentBinding, RoomsFragmentVM>(R.layo
     }
 
     private fun decideWhatViewToShow() {
+
         viewModel.roomList.observe(this, Observer {
             if (it.isNotEmpty()) {
                 submitRoomListRecyclerView(it)

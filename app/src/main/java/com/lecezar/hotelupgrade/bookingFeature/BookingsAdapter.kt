@@ -20,6 +20,7 @@ class BookingsAdapter(private val fragmentContext: Context, private val onItemRo
             override fun areContentsTheSame(oldItem: Booking, newItem: Booking): Boolean = oldItem == newItem
         }
     }
+    fun getItemAt(position: Int): Booking = getItem(position)
 
     override fun bind(binding: ItemBookingBinding, item: Booking, holder: BaseViewHolder<ItemBookingBinding>) {
         binding.itemBookingStart.text = item.startDate.format_mm_DD_YY(fragmentContext)

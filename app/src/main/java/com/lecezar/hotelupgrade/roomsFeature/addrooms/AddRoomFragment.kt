@@ -1,6 +1,7 @@
 package com.lecezar.hotelupgrade.roomsFeature.addrooms
 
 import android.view.View
+import androidx.navigation.findNavController
 import com.lecezar.hotelupgrade.MainActivity
 import com.lecezar.hotelupgrade.R
 import com.lecezar.hotelupgrade.databinding.AddRoomBinding
@@ -53,6 +54,7 @@ class AddRoomFragment : BaseFragment<AddRoomBinding, AddRoomFragmentVM>(R.layout
         viewModel.addSingleRoom {
             onSuccess = {
                 makeToast(this@AddRoomFragment.requireContext(), "Success!")
+                view?.findNavController()?.navigate(AddRoomFragmentDirections.actionAddRoomFragmentToRoomsFragment())
             }; onFailure = {
             makeToast(this@AddRoomFragment.requireContext(), it.message ?: "Failed")
         }
@@ -64,6 +66,7 @@ class AddRoomFragment : BaseFragment<AddRoomBinding, AddRoomFragmentVM>(R.layout
             onSuccess = {
                 makeToast(this@AddRoomFragment.requireContext(), it)
                 viewModel.roomsIntervalsSelected.removeAll { true }
+                view?.findNavController()?.navigate(AddRoomFragmentDirections.actionAddRoomFragmentToRoomsFragment())
             };
             onFailure = {
                 makeToast(this@AddRoomFragment.requireContext(), it.message ?: "Failed")

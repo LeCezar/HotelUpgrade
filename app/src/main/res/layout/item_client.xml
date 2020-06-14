@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout>
+
+    <data class="ItemClientBinding">
+
+        <variable
+            name="viewModel"
+            type="com.lecezar.hotelupgrade.models.Client" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/default_margin"
+        android:background="@drawable/background_rounded_corners"
+        android:elevation="1dp">
+
+        <ImageView
+            android:id="@+id/item_client_image"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:layout_marginStart="@dimen/default_margin"
+            android:layout_marginTop="@dimen/default_margin"
+            android:layout_marginBottom="@dimen/default_margin"
+            android:src="@drawable/ic_person"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/item_client_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/default_margin"
+            android:text="@{viewModel.name}"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintStart_toEndOf="@id/item_client_image"
+            app:layout_constraintTop_toTopOf="@id/item_client_image"
+            tools:text="Olteanu Cezar" />
+
+        <TextView
+            android:id="@+id/item_client_phone_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/default_margin"
+            android:layout_marginTop="@dimen/minimum_margin"
+            android:drawableStart="@drawable/ic_phone"
+            android:drawablePadding="@dimen/minimum_margin"
+            android:text="@{viewModel.phoneNumber}"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:layout_constraintStart_toEndOf="@id/item_client_image"
+            app:layout_constraintTop_toBottomOf="@id/item_client_name"
+            tools:text="0757668270" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

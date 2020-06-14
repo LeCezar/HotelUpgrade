@@ -2,7 +2,10 @@ package com.lecezar.hotelupgrade.eventsFeature
 
 import android.view.View
 import androidx.lifecycle.Observer
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.lecezar.hotelupgrade.MainActivity
 import com.lecezar.hotelupgrade.R
 import com.lecezar.hotelupgrade.databinding.EventsFragmentBinding
@@ -24,15 +27,27 @@ class EventsFragment : BaseFragment<EventsFragmentBinding, EventsFragmentVM>(R.l
         viewModel.eventList.observe(this, Observer { eventList ->
             if (!eventList.isNullOrEmpty()) {
                 val currentTime = Calendar.getInstance().time.time
-                addItemsToRecyclerView(eventList.filter {
+                val filteredEvents = eventList.filter {
                     val timeDiff = currentTime - it.triggerDate.time
                     timeDiff in 1 until HOURS_23_VALUE_MILLIS
-                })
-                showEventsView()
+                }
+                if (filteredEvents.isEmpty()) {
+                    showNoEventsView()
+                } else {
+                    addItemsToRecyclerView(filteredEvents)
+                    showEventsView()
+                }
             } else {
                 showNoEventsView()
             }
         })
+        events_choose_hotel_button.setOnClickListener {
+            view?.findNavController()?.navigate(EventsFragmentDirections.actionEventsFragmentToChooseHotelFragment())
+        }
+        events_sign_out_button.setOnClickListener {
+            Firebase.auth.signOut()
+            view?.findNavController()?.navigate(EventsFragmentDirections.actionEventsFragmentToLoginFragment())
+        }
     }
 
     private fun addItemsToRecyclerView(eventsList: List<Event>) {

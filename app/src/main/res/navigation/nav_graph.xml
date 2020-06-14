@@ -16,8 +16,7 @@
             app:destination="@id/loginFragment" />
         <action
             android:id="@+id/action_splashFragment_to_chooseHotelFragment"
-            app:destination="@id/chooseHotelFragment"
-             />
+            app:destination="@id/chooseHotelFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
@@ -27,6 +26,9 @@
         <action
             android:id="@+id/action_loginFragment_to_chooseHotelFragment"
             app:destination="@id/chooseHotelFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_registerFragment"
+            app:destination="@id/registerFragment" />
     </fragment>
     <fragment
         android:id="@+id/chooseHotelFragment"
@@ -40,11 +42,6 @@
             android:id="@+id/action_chooseHotelFragment_to_addHotelFragment"
             app:destination="@id/addHotelFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/nfcFragment"
-        android:name="com.lecezar.hotelupgrade.nfcFeature.NfcFragment"
-        android:label="NfcFragment"
-        tools:layout="@layout/fragment_nfc" />
     <fragment
         android:id="@+id/roomsFragment"
         android:name="com.lecezar.hotelupgrade.roomsFeature.RoomsFragment"
@@ -61,16 +58,39 @@
         android:id="@+id/eventsFragment"
         android:name="com.lecezar.hotelupgrade.eventsFeature.EventsFragment"
         android:label="EventsFragment"
-        tools:layout="@layout/fragment_events" />
+        tools:layout="@layout/fragment_events">
+        <action
+            android:id="@+id/action_eventsFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_eventsFragment_to_chooseHotelFragment"
+            app:destination="@id/chooseHotelFragment"
+            app:popUpTo="@id/chooseHotelFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
     <fragment
         android:id="@+id/addHotelFragment"
         android:name="com.lecezar.hotelupgrade.chooseHotelFeature.AddHotelFragment"
-        android:label="AddHotelFragment" />
+        android:label="AddHotelFragment">
+        <action
+            android:id="@+id/action_addHotelFragment_to_chooseHotelFragment"
+            app:destination="@id/chooseHotelFragment"
+            app:popUpTo="@id/chooseHotelFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
     <fragment
         android:id="@+id/addRoomFragment"
         android:name="com.lecezar.hotelupgrade.roomsFeature.addrooms.AddRoomFragment"
         android:label="AddRoomFragment"
-        tools:layout="@layout/fragment_add_room" />
+        tools:layout="@layout/fragment_add_room">
+        <action
+            android:id="@+id/action_addRoomFragment_to_roomsFragment"
+            app:destination="@id/roomsFragment"
+            app:popUpTo="@id/roomsFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
     <fragment
         android:id="@+id/roomDetailsFragment"
         android:name="com.lecezar.hotelupgrade.roomsFeature.roomdetails.RoomDetailsFragment"
@@ -98,9 +118,27 @@
     <fragment
         android:id="@+id/addBookingFragment"
         android:name="com.lecezar.hotelupgrade.bookingFeature.addbooking.AddBookingFragment"
-        android:label="AddBookingFragment" >
+        android:label="AddBookingFragment">
         <action
             android:id="@+id/action_addBookingFragment_to_roomDetailsFragment"
             app:destination="@id/roomDetailsFragment" />
+        <action
+            android:id="@+id/action_addBookingFragment_to_bookingsFragment"
+            app:destination="@id/bookingsFragment"
+            app:popUpTo="@id/bookingsFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/calendarFragment"
+        android:name="com.lecezar.hotelupgrade.calendarFeature.CalendarFragment"
+        android:label="CalendarFragment" />
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.lecezar.hotelupgrade.loginFeature.registerFeature.RegisterFragment"
+        android:label="RegisterFragment"
+        tools:layout="@layout/fragment_register">
+        <action
+            android:id="@+id/action_registerFragment_to_chooseHotelFragment"
+            app:destination="@id/chooseHotelFragment" />
     </fragment>
 </navigation>

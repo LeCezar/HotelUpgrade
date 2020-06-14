@@ -192,6 +192,17 @@ class BookingRepository : FirebaseRepository() {
         }
     }
 
+    fun deleteBooking(bookingId: String, callback: CallbackKt<String>.() -> Unit) {
+        firestore.collection(pathWithUser).document("/$bookingId").delete().addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                CallbackKt(callback, "Deleted Booking")
+            }
+            task.exception?.also { e ->
+                CallbackKt(callback, e)
+            }
+        }
+    }
+
     private fun roomsListToIdNameMap(selectedRooms: List<Room>): Map<String, String> {
         val idNameMap: MutableMap<String, String> = mutableMapOf()
         selectedRooms.forEach {

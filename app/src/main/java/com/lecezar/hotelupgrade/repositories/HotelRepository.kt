@@ -90,7 +90,7 @@ class HotelRepository() : FirebaseRepository() {
                     )
                 ).addOnCompleteListener {
                     if (it.isSuccessful) {
-                        CallbackKt(callback, "Success")
+                        CallbackKt(callback, "Success adding $hotelName")
 
                     } else {
                         it.exception?.also { exception ->

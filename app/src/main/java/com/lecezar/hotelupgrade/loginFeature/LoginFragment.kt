@@ -16,16 +16,22 @@ import com.lecezar.hotelupgrade.MainActivity
 import com.lecezar.hotelupgrade.R
 import com.lecezar.hotelupgrade.databinding.LoginFragmentBinding
 import com.lecezar.hotelupgrade.utils.base.BaseFragment
+import com.lecezar.hotelupgrade.utils.makeToast
 import kotlinx.android.synthetic.main.fragment_login.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class LoginFragment() : BaseFragment<LoginFragmentBinding, LoginFragmentVM>(R.layout.fragment_login) {
+class LoginFragment : BaseFragment<LoginFragmentBinding, LoginFragmentVM>(R.layout.fragment_login) {
     override val viewModel: LoginFragmentVM by viewModel()
 
     override fun setupViews() {
-//        view?.findNavController()?.popBackStack(R.id.splashFragment,false)
+        sign_in_button_email.setOnClickListener {
+            signInWithEmail()
+        }
         sing_in_button.setOnClickListener {
-            signIn()
+            signInGoogle()
+        }
+        login_fragment_register_button.setOnClickListener {
+            view?.findNavController()?.navigate(LoginFragmentDirections.actionLoginFragmentToRegisterFragment())
         }
     }
 
@@ -36,7 +42,7 @@ class LoginFragment() : BaseFragment<LoginFragmentBinding, LoginFragmentVM>(R.la
             .build()
     )
 
-    private fun signIn() {
+    private fun signInGoogle() {
         val signInIntent = getGoogleSignInClient().signInIntent
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             GoogleSignIn.getSignedInAccountFromIntent(it.data).apply {
@@ -49,6 +55,19 @@ class LoginFragment() : BaseFragment<LoginFragmentBinding, LoginFragmentVM>(R.la
                 }
             }
         }.launch(signInIntent)
+    }
+
+    private fun signInWithEmail() {
+        viewModel.signInWithEmailAndPassword(Firebase.auth) {
+            onSuccess = {
+                GlobalVariables.currentUserId.set(Firebase.auth.currentUser?.uid)
+                makeToast(this@LoginFragment.requireContext(), it)
+                view?.findNavController()?.navigate(LoginFragmentDirections.actionLoginFragmentToChooseHotelFragment())
+            }
+            onFailure = {
+                makeToast(this@LoginFragment.requireContext(), it.message ?: it.localizedMessage ?: "Failed register!")
+            }
+        }
     }
 
 

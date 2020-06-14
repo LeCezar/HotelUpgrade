@@ -1,16 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data class="CalendarFragmentBinding">
+
         <variable
             name="viewModel"
             type="com.lecezar.hotelupgrade.calendarFeature.CalendarFragmentVM" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <include
+
+            layout="@layout/item_calendar_day_legend" />
+
+
+        <com.kizitonwose.calendarview.CalendarView
+            android:id="@+id/calendar_view_root"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            app:cv_dayViewResource="@layout/item_calendar_day"
+            app:cv_inDateStyle="allMonths"
+            app:cv_maxRowCount="6"
+            app:cv_monthHeaderResource="@layout/item_calendar_header"
+            app:cv_orientation="horizontal"
+            app:cv_outDateStyle="endOfRow"
+            app:cv_scrollMode="paged" />
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/calendar_events_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/default_margin"
+            android:layout_weight="1"
+            android:background="@drawable/background_rounded_corners" />
+
+    </LinearLayout>
 </layout>

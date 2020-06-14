@@ -105,6 +105,7 @@ class RoomRepository : FirebaseRepository() {
         callback: CallbackKt<List<Room>>.() -> Unit
     ) {
         if (auth.currentUser != null) {
+
             firestore.collection(pathWithUser).addSnapshotLifecycleAwareListener("allRooms",
                 firebaseListenerManager, lifecycleOwner,
                 onSuccess = { snapshot ->
@@ -120,6 +121,8 @@ class RoomRepository : FirebaseRepository() {
                     }
                 }
             )
+
+
         } else {
             CallbackKt(callback, NoSuchFieldException("No user"))
         }

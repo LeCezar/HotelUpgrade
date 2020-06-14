@@ -5,11 +5,12 @@ import com.lecezar.hotelupgrade.bookingFeature.BookingsFragmentVM
 import com.lecezar.hotelupgrade.bookingFeature.addbooking.AddBookingFragmentVM
 import com.lecezar.hotelupgrade.bookingFeature.bookingtabs.BookingsTabFragmentVM
 import com.lecezar.hotelupgrade.bookingFeature.bookingtabs.ClientsTabFragmentVM
+import com.lecezar.hotelupgrade.calendarFeature.CalendarFragmentVM
 import com.lecezar.hotelupgrade.chooseHotelFeature.AddHotelVM
 import com.lecezar.hotelupgrade.chooseHotelFeature.ChooseHotelVM
 import com.lecezar.hotelupgrade.eventsFeature.EventsFragmentVM
 import com.lecezar.hotelupgrade.loginFeature.LoginFragmentVM
-import com.lecezar.hotelupgrade.nfcFeature.NfcFragmentVM
+import com.lecezar.hotelupgrade.loginFeature.registerFeature.RegisterFragmentVM
 import com.lecezar.hotelupgrade.repositories.*
 import com.lecezar.hotelupgrade.roomsFeature.RoomsFragmentVM
 import com.lecezar.hotelupgrade.roomsFeature.addrooms.AddRoomFragmentVM
@@ -24,17 +25,18 @@ object KoinModules {
         viewModel { MainActivityVM() }
         viewModel { SplashFragmentVM() }
         viewModel { LoginFragmentVM() }
+        viewModel { RegisterFragmentVM() }
         viewModel { ChooseHotelVM() }
         viewModel { AddHotelVM() }
         viewModel { EventsFragmentVM() }
         viewModel { RoomsFragmentVM() }
-        viewModel { NfcFragmentVM() }
         viewModel { AddRoomFragmentVM() }
         viewModel { RoomDetailsFragmentVM() }
         viewModel { BookingsFragmentVM() }
         viewModel { AddBookingFragmentVM() }
         viewModel { ClientsTabFragmentVM() }
         viewModel { BookingsTabFragmentVM() }
+        viewModel { CalendarFragmentVM() }
     }
 
     private val apiModule = module {
