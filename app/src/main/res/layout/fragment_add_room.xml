@@ -230,7 +230,7 @@
                     android:id="@+id/single_room_name_input"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="number"
+                    android:inputType="text"
                     android:text="@={viewModel.singleRoomName}"
                     android:textAlignment="center"
                     android:textColor="@color/black" />
@@ -285,6 +285,32 @@
                     android:textColor="@color/black" />
             </com.google.android.material.textfield.TextInputLayout>
 
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/single_room_price_layout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                validateRoomNumber="@{viewModel.price}"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_margin"
+
+                android:hint="Price"
+                app:layout_constraintEnd_toEndOf="@id/single_room_number_layout"
+                app:layout_constraintStart_toStartOf="@id/single_room_floor_layout"
+                app:layout_constraintTop_toBottomOf="@id/single_room_floor_layout">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/single_room_price_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_money"
+                    android:drawablePadding="@dimen/default_margin"
+                    android:inputType="number"
+                    android:text="@={viewModel.price}"
+                    android:textAlignment="center"
+                    android:textColor="@color/black" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -293,7 +319,7 @@
                 android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/single_room_floor_layout"
+                app:layout_constraintTop_toBottomOf="@id/single_room_price_layout"
                 tools:text="Final room number: 106" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

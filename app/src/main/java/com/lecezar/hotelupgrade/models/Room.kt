@@ -10,9 +10,6 @@ import com.lecezar.hotelupgrade.utils.format_mm_DD_YY
 import kotlinx.android.parcel.Parcelize
 import java.util.*
 
-/**
- * The name property is also the room's document id but without spaces
- */
 @Parcelize
 data class Room(
     val name: String = "",
@@ -21,16 +18,18 @@ data class Room(
     val occupationStatus: OccupationStatus = OccupationStatus.AVAILABLE,
     val cleaningStatus: CleaningStatus = CleaningStatus.CLEAN,
     val nextBookingInfo: Pair<String, Date>? = null,
-    val id: String = ""
+    val id: String = "",
+    val price: Long? = null
 ) : Parcelable {
-    fun toMap(): Map<String, Any> {
+    fun toMap(): Map<String, Any?> {
         return mapOf(
             "id" to this.id,
             "name" to this.name,
             "number" to this.number,
             "floor" to this.floor,
             "occupationStatus" to this.occupationStatus.name,
-            "cleaningStatus" to this.cleaningStatus.name
+            "cleaningStatus" to this.cleaningStatus.name,
+            "price" to this.price
         )
     }
 
@@ -77,6 +76,11 @@ data class Room(
     companion object {
 
         fun fromDocument(document: DocumentSnapshot): Room {
+            val price: Long? = if (document["price"] != null) {
+                (document["price"] as Long)
+            } else {
+                null
+            }
             val booking = if (document["nextBookingInfo"] != null) {
                 val bookingId = (document["nextBookingInfo"] as Map<String, Any>).keys.first()
                 val startDate = (document["nextBookingInfo"] as Map<String, Any>).values.first()
@@ -95,7 +99,8 @@ data class Room(
                 OccupationStatus.getEnumFromString(document["occupationStatus"].toString()),
                 CleaningStatus.getEnumFromString(document["cleaningStatus"].toString()),
                 booking,
-                document.id
+                document.id,
+                price
             )
         }
 

@@ -15,31 +15,27 @@ import java.util.*
 
 class RoomRepository : FirebaseRepository() {
 
-    private var path: String = "/temp"
     private var pathWithUser: String = "/temp"
 
     init {
         GlobalVariables.currentHotelId.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
             override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                path = "/Hotels/${(sender as ObservableField<*>).get()}/Rooms"
+                pathWithUser = "/Users/${GlobalVariables.currentUserId.get()}/Hotels/${(sender as ObservableField<*>).get()}/Rooms"
             }
         })
 
         GlobalVariables.currentUserId.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
             override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                pathWithUser = "/Users/${(sender as ObservableField<*>).get()}" + path
+                pathWithUser = "/Users/${(sender as ObservableField<*>).get()}/Hotels/${GlobalVariables.currentHotelId.get()}/Rooms"
             }
         })
 
-        if (!GlobalVariables.currentHotelId.get().isNullOrEmpty())
-            path = "/Hotels/${GlobalVariables.currentHotelId.get()}/Rooms"
-
-        if (!GlobalVariables.currentUserId.get().isNullOrEmpty()) {
-            pathWithUser = "/Users/${GlobalVariables.currentUserId.get()}" + path
+        if (!GlobalVariables.currentUserId.get().isNullOrEmpty() && !GlobalVariables.currentHotelId.get().isNullOrEmpty()) {
+            pathWithUser = "/Users/${GlobalVariables.currentUserId.get()}/Hotels/${GlobalVariables.currentHotelId.get()}/Rooms"
         }
     }
 
-    fun addSingleRoom(roomNumber: Int, roomFloor: Int?, roomName: String?, callback: CallbackKt<String>.() -> Unit) {
+    fun addSingleRoom(roomNumber: Int, roomFloor: Int?, roomName: String?, price: String?, callback: CallbackKt<String>.() -> Unit) {
 
         if (auth.currentUser != null) {
 
@@ -47,12 +43,12 @@ class RoomRepository : FirebaseRepository() {
                 .document().apply {
                     val newRoom = if (roomName == null) {
                         if (roomFloor != null) {
-                            Room("Room ${roomFloor * 100 + roomNumber}", roomNumber, roomFloor, id = this.id)
+                            Room("Room ${roomFloor * 100 + roomNumber}", roomNumber, roomFloor, id = this.id, price = price?.toLong())
                         } else {
-                            Room("Room $roomNumber", roomNumber, -1, id = this.id)
+                            Room("Room $roomNumber", roomNumber, -1, id = this.id, price = price?.toLong())
                         }
                     } else {
-                        Room(roomName, roomNumber, roomFloor ?: -1, id = this.id)
+                        Room(roomName, roomNumber, roomFloor ?: -1, id = this.id, price = price?.toLong())
                     }
                     set(newRoom.toMap(), SetOptions.merge())
                         .addOnCompleteListener { task ->
@@ -75,11 +71,10 @@ class RoomRepository : FirebaseRepository() {
                 if (roomInterval.startNumber < roomInterval.endNumber) {
                     for (i in roomInterval.startNumber..roomInterval.endNumber) {
                         //try adding room
-                        this.addSingleRoom(i, roomInterval.floor, null) {
-
+                        this.addSingleRoom(i, roomInterval.floor, null, null) {
                             onFailure = {
                                 //try again in case of failure
-                                addSingleRoom(i, roomInterval.floor, null) {
+                                addSingleRoom(i, roomInterval.floor, null, null) {
                                     onSuccess = {}
                                     //abort adding
                                     onFailure = {
@@ -105,7 +100,6 @@ class RoomRepository : FirebaseRepository() {
         callback: CallbackKt<List<Room>>.() -> Unit
     ) {
         if (auth.currentUser != null) {
-
             firestore.collection(pathWithUser).addSnapshotLifecycleAwareListener("allRooms",
                 firebaseListenerManager, lifecycleOwner,
                 onSuccess = { snapshot ->

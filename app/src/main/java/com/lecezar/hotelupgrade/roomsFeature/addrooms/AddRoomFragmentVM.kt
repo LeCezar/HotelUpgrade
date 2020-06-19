@@ -19,10 +19,11 @@ class AddRoomFragmentVM : BaseViewModel(), KoinComponent {
     val singleRoomName = MutableLiveData<String>()
     val singleRoomNumber = MutableLiveData<String>()
     val roomsIntervalsSelected = mutableListOf<RoomsInterval>()
+    val price = MutableLiveData<String>()
 
     fun addSingleRoom(onResult: CallbackKt<String>.() -> Unit) {
         singleRoomNumber.value?.apply {
-            roomRepository.addSingleRoom(this.toInt(), singleRoomFloor.value?.toInt(), singleRoomName.value, onResult)
+            roomRepository.addSingleRoom(this.toInt(), singleRoomFloor.value?.toInt(), singleRoomName.value, price.value, onResult)
         }
     }
 

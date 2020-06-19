@@ -14,33 +14,27 @@ import com.lecezar.hotelupgrade.utils.binding.addSnapshotLifecycleAwareListener
 import java.util.*
 
 class BookingRepository : FirebaseRepository() {
-    private var path: String = "/temp"
     private var pathWithUser: String = "/temp"
-    private var roomsPath: String = "/temp"
     private var roomsPathWithUser: String = "/temp"
 
     init {
         GlobalVariables.currentHotelId.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
             override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                path = "/Hotels/${(sender as ObservableField<*>).get()}/Bookings"
-                roomsPath = "/Hotels/${sender.get()}/Rooms"
+                pathWithUser = "/Users/${GlobalVariables.currentUserId.get()}/Hotels/${(sender as ObservableField<*>).get()}/Bookings"
+                roomsPathWithUser = "/Users/${GlobalVariables.currentUserId.get()}/Hotels/${(sender as ObservableField<*>).get()}/Rooms"
             }
         })
 
         GlobalVariables.currentUserId.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
             override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                pathWithUser = "/Users/${(sender as ObservableField<*>).get()}" + path
-                roomsPath = "/${sender.get()}" + roomsPath
+                roomsPathWithUser = "/Users/${(sender as ObservableField<*>).get()}/Hotels/${GlobalVariables.currentHotelId.get()}/Bookings"
+                roomsPathWithUser = "/Users/${(sender as ObservableField<*>).get()}/Hotels/${GlobalVariables.currentHotelId.get()}/Rooms"
             }
         })
 
-        if (!GlobalVariables.currentHotelId.get().isNullOrEmpty()) {
-            path = "/Hotels/${GlobalVariables.currentHotelId.get()}/Bookings"
-            roomsPath = "/Hotels/${GlobalVariables.currentHotelId.get()}/Rooms"
-        }
-        if (!GlobalVariables.currentUserId.get().isNullOrEmpty()) {
-            pathWithUser = "/Users/${GlobalVariables.currentUserId.get()}" + path
-            roomsPathWithUser = "/Users/${GlobalVariables.currentUserId.get()}" + roomsPath
+        if (!GlobalVariables.currentHotelId.get().isNullOrEmpty() && !GlobalVariables.currentUserId.get().isNullOrEmpty()) {
+            pathWithUser = "/Users/${GlobalVariables.currentUserId.get()}/Hotels/${GlobalVariables.currentHotelId.get()}/Bookings"
+            roomsPathWithUser = "/Users/${GlobalVariables.currentUserId.get()}/Hotels/${GlobalVariables.currentHotelId.get()}/Rooms"
         }
     }
 
