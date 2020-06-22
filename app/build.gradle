@@ -3,6 +3,8 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.google.firebase.crashlytics'
+
 
 android {
     compileSdkVersion 29
@@ -57,6 +59,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth-ktx:19.3.1'
     implementation 'com.google.firebase:firebase-firestore-ktx:21.4.3'
     implementation 'com.google.firebase:firebase-functions-ktx:19.0.2'
+    implementation 'com.google.firebase:firebase-crashlytics:17.1.0'
+
 
     //Glide
     implementation "com.github.bumptech.glide:glide:$rootProject.glide_version"
