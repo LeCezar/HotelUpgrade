@@ -16,7 +16,7 @@ import org.threeten.bp.LocalDate
 class CalendarFragmentVM : BaseViewModel(), KoinComponent {
     private val eventRepository: EventRepository by inject()
     var eventList = MutableLiveData<List<Event>>()
-
+//    var selectedDate: LocalDate? = null
     val currentMonthSelected = MutableLiveData<LocalDate>()
     val eventMapForSelectedMonth = currentMonthSelected.map {
         updateEventListWithSelectedMonth(it)

@@ -5,12 +5,15 @@ import android.view.View
 import androidx.recyclerview.widget.DiffUtil
 import com.lecezar.hotelupgrade.R
 import com.lecezar.hotelupgrade.databinding.ItemRoomBinding
+import com.lecezar.hotelupgrade.models.Booking
 import com.lecezar.hotelupgrade.models.Room
 import com.lecezar.hotelupgrade.utils.base.BaseAdapter
 
 
 class RoomsAdapter(val fragmentContext: Context, private val onClickCallback: (Room) -> Unit) :
     BaseAdapter<Room, ItemRoomBinding>(R.layout.item_room, DIFF_CALLBACK) {
+
+    fun getItemAt(position: Int): Room = getItem(position)
 
     override fun bind(binding: ItemRoomBinding, item: Room, holder: BaseViewHolder<ItemRoomBinding>) {
         if (item.nextBookingInfo == null) {

@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import com.lecezar.hotelupgrade.models.Room
 import com.lecezar.hotelupgrade.repositories.RoomRepository
 import com.lecezar.hotelupgrade.utils.base.BaseViewModel
+import com.lecezar.hotelupgrade.utils.binding.CallbackKt
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 
@@ -33,5 +34,9 @@ class RoomsFragmentVM : BaseViewModel(), KoinComponent {
                 Log.d("StatusUpdatesF", it.message ?: it.localizedMessage ?: "No message")
             }
         }
+    }
+
+    fun deleteRoom(roomId: String, callbackKt: CallbackKt<String>.() -> Unit) {
+        roomRepository.deleteRoom(roomId, callbackKt)
     }
 }

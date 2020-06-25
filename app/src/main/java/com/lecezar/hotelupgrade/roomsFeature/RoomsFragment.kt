@@ -3,12 +3,15 @@ package com.lecezar.hotelupgrade.roomsFeature
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.lecezar.hotelupgrade.MainActivity
 import com.lecezar.hotelupgrade.R
 import com.lecezar.hotelupgrade.databinding.RoomsFragmentBinding
 import com.lecezar.hotelupgrade.models.Room
 import com.lecezar.hotelupgrade.utils.base.BaseFragment
+import com.lecezar.hotelupgrade.utils.base.RecycleItemTouchHelper
+import com.lecezar.hotelupgrade.utils.makeToast
 import kotlinx.android.synthetic.main.fragment_rooms.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -24,7 +27,6 @@ class RoomsFragment : BaseFragment<RoomsFragmentBinding, RoomsFragmentVM>(R.layo
     }
 
     private fun decideWhatViewToShow() {
-
         viewModel.roomList.observe(this, Observer {
             if (it.isNotEmpty()) {
                 submitRoomListRecyclerView(it)
@@ -48,6 +50,16 @@ class RoomsFragment : BaseFragment<RoomsFragmentBinding, RoomsFragmentVM>(R.layo
             }
             layoutManager = LinearLayoutManager(this@RoomsFragment.context)
         }
+        ItemTouchHelper(RecycleItemTouchHelper {
+            (rooms_recycler_view?.adapter as RoomsAdapter).apply {
+                viewModel.deleteRoom(this.getItemAt(it).id) {
+                    onSuccess = {
+                        makeToast(this@RoomsFragment.requireContext(), it)
+                    }
+                    onFailure = {}
+                }
+            }
+        }).attachToRecyclerView(rooms_recycler_view)
     }
 
     private fun setOnClickListeners() {

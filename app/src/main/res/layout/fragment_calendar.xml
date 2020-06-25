@@ -14,32 +14,69 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <include
-
-            layout="@layout/item_calendar_day_legend" />
-
-
-        <com.kizitonwose.calendarview.CalendarView
-            android:id="@+id/calendar_view_root"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/calendar_action_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0"
-            app:cv_dayViewResource="@layout/item_calendar_day"
-            app:cv_inDateStyle="allMonths"
-            app:cv_maxRowCount="6"
-            app:cv_monthHeaderResource="@layout/item_calendar_header"
-            app:cv_orientation="horizontal"
-            app:cv_outDateStyle="endOfRow"
-            app:cv_scrollMode="paged" />
+            android:paddingBottom="@dimen/minimum_margin"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/calendar_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/calendar_events_recycler_view"
+            <TextView
+                android:id="@+id/calendar_action_bar_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/large_margin"
+                android:layout_marginTop="@dimen/minimum_margin"
+                android:text="Events Calendar"
+                android:textAppearance="@style/toolbar_title_style"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/calendar_toolbar" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/default_margin"
-            android:layout_weight="1"
-            android:background="@drawable/background_rounded_corners" />
+            android:layout_height="wrap_content">
 
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:layout_height="wrap_content">
+                <include layout="@layout/item_calendar_day_legend" />
+
+                <com.kizitonwose.calendarview.CalendarView
+                    android:id="@+id/calendar_view_root"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:nestedScrollingEnabled="false"
+                    app:cv_dayViewResource="@layout/item_calendar_day"
+                    app:cv_inDateStyle="allMonths"
+                    app:cv_maxRowCount="6"
+                    app:cv_monthHeaderResource="@layout/item_calendar_header"
+                    app:cv_orientation="horizontal"
+                    app:cv_outDateStyle="endOfRow"
+                    app:cv_scrollMode="paged" />
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/calendar_events_recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/default_margin"
+                    android:layout_weight="1"
+                    android:background="@drawable/background_rounded_corners"
+                    android:nestedScrollingEnabled="false" />
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
     </LinearLayout>
 </layout>

@@ -211,6 +211,17 @@ class RoomRepository : FirebaseRepository() {
         }
     }
 
+    fun deleteRoom(roomId: String, callback: CallbackKt<String>.() -> Unit) {
+        firestore.collection(pathWithUser).document("/$roomId").delete().addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                CallbackKt(callback, "Deleted Room")
+            }
+            task.exception?.apply {
+                CallbackKt(callback, this)
+            }
+        }
+    }
+
 //    private fun undoMultipleAdd(roomsIntervalList: List<RoomsInterval>) {
 //        //todo
 //    }

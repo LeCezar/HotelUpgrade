@@ -10,6 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:padding="@dimen/minimum_margin"
+        android:fontFamily="@font/nunito_regular"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="20sp"
