@@ -11,29 +11,24 @@ import com.lecezar.hotelupgrade.utils.binding.CallbackKt
 import com.lecezar.hotelupgrade.utils.binding.addSnapshotLifecycleAwareListener
 
 class ClientRepository : FirebaseRepository() {
-    private var path: String = "/temp"
     private var pathWithUser: String = "/temp"
 
 
     init {
         GlobalVariables.currentHotelId.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
             override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                path = "/Hotels/${(sender as ObservableField<*>).get()}/Clients"
+                pathWithUser = "/Users/${GlobalVariables.currentUserId.get()}/Hotels/${(sender as ObservableField<*>).get()}/Clients"
             }
         })
 
         GlobalVariables.currentUserId.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
             override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                pathWithUser = "/Users/${(sender as ObservableField<*>).get()}" + path
+                pathWithUser = "/Users/${(sender as ObservableField<*>).get()}/Hotels/${GlobalVariables.currentHotelId.get()}/Clients"
             }
         })
 
-        if (!GlobalVariables.currentHotelId.get().isNullOrEmpty()) {
-            path = "/Hotels/${GlobalVariables.currentHotelId.get()}/Clients"
-        }
-
-        if (!GlobalVariables.currentUserId.get().isNullOrEmpty()) {
-            pathWithUser = "/Users/${GlobalVariables.currentUserId.get()}" + path
+        if (!GlobalVariables.currentUserId.get().isNullOrEmpty() && !GlobalVariables.currentHotelId.get().isNullOrEmpty()) {
+            pathWithUser = "/Users/${GlobalVariables.currentUserId.get()}/Hotels/${GlobalVariables.currentHotelId.get()}/Clients"
         }
     }
 

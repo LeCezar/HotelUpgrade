@@ -17,22 +17,18 @@ class EventRepository : FirebaseRepository() {
     init {
         GlobalVariables.currentHotelId.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
             override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                path = "/Hotels/${(sender as ObservableField<*>).get()}/Events"
+                pathWithUser = "/Users/${GlobalVariables.currentUserId.get()}/Hotels/${(sender as ObservableField<*>).get()}/Events"
             }
         })
 
         GlobalVariables.currentUserId.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
             override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                pathWithUser = "/Users/${(sender as ObservableField<*>).get()}" + path
+                pathWithUser = "/Users/${(sender as ObservableField<*>).get()}/Hotels/${GlobalVariables.currentHotelId.get()}/Events"
             }
         })
 
-        if (!GlobalVariables.currentHotelId.get().isNullOrEmpty()) {
-            path = "/Hotels/${GlobalVariables.currentHotelId.get()}/Events"
-        }
-
-        if (!GlobalVariables.currentUserId.get().isNullOrEmpty()) {
-            pathWithUser = "/Users/${GlobalVariables.currentUserId.get()}" + path
+        if (!GlobalVariables.currentUserId.get().isNullOrEmpty() && !GlobalVariables.currentHotelId.get().isNullOrEmpty()) {
+            pathWithUser = "/Users/${GlobalVariables.currentUserId.get()}/Hotels/${GlobalVariables.currentHotelId.get()}/Events"
         }
     }
 
