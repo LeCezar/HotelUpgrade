@@ -10,6 +10,7 @@ import com.kizitonwose.calendarview.model.CalendarMonth
 import com.kizitonwose.calendarview.model.DayOwner
 import com.kizitonwose.calendarview.ui.DayBinder
 import com.kizitonwose.calendarview.ui.ViewContainer
+import com.lecezar.hotelupgrade.MainActivity
 import com.lecezar.hotelupgrade.R
 import com.lecezar.hotelupgrade.databinding.CalendarFragmentBinding
 import com.lecezar.hotelupgrade.eventsFeature.EventsAdapter
@@ -38,13 +39,15 @@ class CalendarFragment : BaseFragment<CalendarFragmentBinding, CalendarFragmentV
     private var isCalendarSetUpMade = false
 
     override fun setupViews() {
+        (activity as MainActivity).showBottomNavigation()
+
         viewModel.subscribeAllEventsListener(this)
-        viewModel.eventMapForThisOneMonth.observe(viewLifecycleOwner, Observer { eventList ->
-            if (!isCalendarSetUpMade) {
-                setUpCalendar()
-                isCalendarSetUpMade = true
-                setUpRecyclerView()
-            }
+        if (!isCalendarSetUpMade) {
+            setUpCalendar()
+            isCalendarSetUpMade = true
+            setUpRecyclerView()
+        }
+        viewModel.eventMapForSelectedMonth.observe(viewLifecycleOwner, Observer { eventList ->
             calendar_view_root.notifyCalendarChanged()
         })
         viewModel.eventList.observe(viewLifecycleOwner, Observer {
@@ -54,7 +57,7 @@ class CalendarFragment : BaseFragment<CalendarFragmentBinding, CalendarFragmentV
 
     private fun giveRecyclerViewEventsFromASelectedDate(date: LocalDate?) {
         if (date != null) {
-            viewModel.eventMapForThisOneMonth.value?.apply {
+            viewModel.eventMapForSelectedMonth.value?.apply {
                 val eventListToday = this[date]
                 if (eventListToday != null) {
                     giveItemsToRecyclerView(eventListToday)
@@ -103,12 +106,12 @@ class CalendarFragment : BaseFragment<CalendarFragmentBinding, CalendarFragmentV
         }
     }
 
-    inner class DayBinderCalendar() : DayBinder<DayViewContainer> {
+    inner class DayBinderCalendar : DayBinder<DayViewContainer> {
 
         override fun bind(container: DayViewContainer, day: CalendarDay) {
             container.setDay(day)
             if (day.owner == DayOwner.THIS_MONTH) {
-                viewModel.eventMapForThisOneMonth.value?.apply {
+                viewModel.eventMapForSelectedMonth.value?.apply {
                     val eventsForToday = this[day.date]
                     if (eventsForToday != null) {
                         if (eventsForToday.size >= 2) {

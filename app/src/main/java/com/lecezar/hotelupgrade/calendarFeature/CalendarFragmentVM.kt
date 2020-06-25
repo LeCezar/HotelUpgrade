@@ -18,7 +18,7 @@ class CalendarFragmentVM : BaseViewModel(), KoinComponent {
     var eventList = MutableLiveData<List<Event>>()
 
     val currentMonthSelected = MutableLiveData<LocalDate>()
-    val eventMapForThisOneMonth = currentMonthSelected.map {
+    val eventMapForSelectedMonth = currentMonthSelected.map {
         updateEventListWithSelectedMonth(it)
     }
 
