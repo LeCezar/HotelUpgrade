@@ -75,13 +75,17 @@ class AddBookingFragment : BaseFragment<AddBookingBinding, AddBookingFragmentVM>
 
     private fun endDateOnCLickListener() {
         add_booking_end_date_text_button.setOnClickListener {
+            var startDateForPicker: Date = Calendar.getInstance().time
+            viewModel.startDate.value?.apply {
+                startDateForPicker = this.addDays(1)
+            }
             showDatePicker(DatePickerDialog.OnDateSetListener { _, year, month, day ->
                 val calendar = Calendar.getInstance()
                 calendar.set(year, month, day, 12, 0)
                 add_booking_end_date_text_button.text = calendar.time.format_mm_DD_YY(this@AddBookingFragment.requireContext())
                 viewModel.endDate.value = calendar.time
                 viewModel.fetchAvailableRoomsList()
-            })
+            }, startDateForPicker = startDateForPicker)
         }
     }
 
@@ -124,9 +128,8 @@ class AddBookingFragment : BaseFragment<AddBookingBinding, AddBookingFragmentVM>
         add_booking_no_rooms_available_text.visibility = View.GONE
     }
 
-    private fun showDatePicker(callBack: DatePickerDialog.OnDateSetListener) {
-        val currentDate = Calendar.getInstance().time
-        val month = currentDate.getMonthAsInt()
-        DatePickerDialog(this.requireContext(), callBack, currentDate.getYearAsInt(), month - 1, currentDate.getDayAsInt()).show()
+    private fun showDatePicker(callBack: DatePickerDialog.OnDateSetListener, startDateForPicker: Date = Calendar.getInstance().time) {
+        val month = startDateForPicker.getMonthAsInt()
+        DatePickerDialog(this.requireContext(), callBack, startDateForPicker.getYearAsInt(), month - 1, startDateForPicker.getDayAsInt()).show()
     }
 }

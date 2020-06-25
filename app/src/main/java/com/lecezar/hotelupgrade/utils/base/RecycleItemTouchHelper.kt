@@ -15,6 +15,5 @@ class RecycleItemTouchHelper(swipeCallback: (poz: Int) -> Unit): ItemTouchHelper
 
     override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
         callback(viewHolder.adapterPosition)
-        Snackbar.make(viewHolder.itemView,"DELETED",Snackbar.LENGTH_SHORT).show()
     }
 }
