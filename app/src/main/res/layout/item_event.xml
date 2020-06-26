@@ -33,7 +33,7 @@
             android:background="@drawable/background_rounded_corners"
             android:padding="@dimen/minimum_margin"
             android:text="@{viewModel.eventType.eventType}"
-            android:textColor="@color/black"
+            android:textColor="@{viewModel.getColorForEventType(context)}"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@id/item_event_icon"
