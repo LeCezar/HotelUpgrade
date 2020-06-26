@@ -13,7 +13,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/item_room_selectable_root"
         android:layout_width="96dp"
-        android:layout_height="128dp"
+        android:layout_height="160dp"
         android:layout_margin="@dimen/default_margin"
         android:background="@drawable/background_rounded_corners">
 
@@ -40,13 +40,26 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/item_room_selectable_image" />
 
+        <TextView
+            android:id="@+id/item_room_selectable_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/minimum_margin"
+            android:text="@{viewModel.price == null ? `---` : viewModel.price.toString()}"
+            android:textAlignment="center"
+            android:textAppearance="@style/tab_text_style"
+            android:textColor="@color/ok_green"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/item_room_selectable_name" />
+
         <CheckBox
             android:id="@+id/item_room_selectable_check_box"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="@dimen/default_margin"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/item_room_selectable_name" />
+            app:layout_constraintTop_toBottomOf="@id/item_room_selectable_price" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

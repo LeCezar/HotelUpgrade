@@ -288,11 +288,9 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/single_room_price_layout"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                validateRoomNumber="@{viewModel.price}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/default_margin"
-
                 android:hint="Price"
                 app:layout_constraintEnd_toEndOf="@id/single_room_number_layout"
                 app:layout_constraintStart_toStartOf="@id/single_room_floor_layout"

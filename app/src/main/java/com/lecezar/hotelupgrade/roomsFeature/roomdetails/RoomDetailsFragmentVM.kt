@@ -8,6 +8,7 @@ import com.lecezar.hotelupgrade.models.Room
 import com.lecezar.hotelupgrade.repositories.BookingRepository
 import com.lecezar.hotelupgrade.repositories.RoomRepository
 import com.lecezar.hotelupgrade.utils.base.BaseViewModel
+import com.lecezar.hotelupgrade.utils.binding.CallbackKt
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 
@@ -17,11 +18,18 @@ class RoomDetailsFragmentVM : BaseViewModel(), KoinComponent {
 
     val selectedRoom = MutableLiveData<Room>()
     val selectedRoomBookings = MutableLiveData<List<Booking>>()
+    val selectedRoomPrice = MutableLiveData<String>()
+
 
     fun subscribeSelectedRoomListenerWithBookings(id: String, lifecycleOwner: LifecycleOwner) {
         roomRepository.subscribeListenerForOneRoom(id, lifecycleOwner) {
             onSuccess = {
                 selectedRoom.value = it
+                var price = NO_PRICE_TEXT
+                if (it.price != null) {
+                    price = it.price.toString()
+                }
+                selectedRoomPrice.value = price
                 bookingRepository.subscribeListenerForBookingsOfARoom(it.id, it.name, lifecycleOwner) {
                     onSuccess = {
                         Log.d("SelectedRoomBookings", it.size.toString())
@@ -38,15 +46,15 @@ class RoomDetailsFragmentVM : BaseViewModel(), KoinComponent {
         }
     }
 
-//    fun subscribeListenerForThisRoomBooking(lifecycleOwner: LifecycleOwner) {
-//        bookingRepository.subscribeListenerForBookingsOfARoom(roomId, roomName, lifecycleOwner) {
-//            onSuccess = {
-//                Log.d("SelectedRoomBookings", it.size.toString())
-//                selectedRoomBookings.value = it
-//            }
-//            onFailure = {
-//
-//            }
-//        }
-//    }
+    fun updateRoomPrice(callbackKt: CallbackKt<String>.() -> Unit) {
+        val roomId = selectedRoom.value?.id
+        val newRoomPrice = selectedRoomPrice.value?.toLong()
+        if (newRoomPrice != null && roomId != null) {
+            roomRepository.updateRoomPrice(roomId, newRoomPrice, callbackKt)
+        }
+    }
+
+    companion object {
+        const val NO_PRICE_TEXT = "No Price Set"
+    }
 }
