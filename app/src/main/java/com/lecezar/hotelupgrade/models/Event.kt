@@ -1,7 +1,10 @@
 package com.lecezar.hotelupgrade.models
 
+import android.content.Context
+import androidx.annotation.ColorRes
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.DocumentSnapshot
+import com.lecezar.hotelupgrade.R
 import com.lecezar.hotelupgrade.utils.getDayAsInt
 import com.lecezar.hotelupgrade.utils.getMonthAsInt
 import com.lecezar.hotelupgrade.utils.getYearAsInt
@@ -17,8 +20,22 @@ data class Event(
     val eventType: EventType
 ) {
 
-    fun triggerDateToLocalDate():LocalDate{
-        return LocalDate.of(this.triggerDate.getYearAsInt(),this.triggerDate.getMonthAsInt(),this.triggerDate.getDayAsInt())
+    fun triggerDateToLocalDate(): LocalDate {
+        return LocalDate.of(this.triggerDate.getYearAsInt(), this.triggerDate.getMonthAsInt(), this.triggerDate.getDayAsInt())
+    }
+
+    @ColorRes
+    fun getColorForEventType(context: Context): Int {
+        return when (this.eventType) {
+            Event.Companion.EventType.CHECKIN -> {
+                context.resources.getColor(R.color.checkin, context.theme)
+
+            }
+            Event.Companion.EventType.CHECKOUT -> {
+                context.resources.getColor(R.color.checkout, context.theme)
+
+            }
+        }
     }
 
     companion object {
