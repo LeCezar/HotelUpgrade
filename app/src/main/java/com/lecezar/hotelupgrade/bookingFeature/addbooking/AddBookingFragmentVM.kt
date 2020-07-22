@@ -11,6 +11,7 @@ import com.lecezar.hotelupgrade.utils.base.BaseViewModel
 import com.lecezar.hotelupgrade.utils.binding.CallbackKt
 import org.koin.core.KoinComponent
 import org.koin.core.inject
+import java.security.InvalidParameterException
 import java.util.*
 
 class AddBookingFragmentVM : BaseViewModel(), KoinComponent {
@@ -73,7 +74,7 @@ class AddBookingFragmentVM : BaseViewModel(), KoinComponent {
 
     fun addBooking(callbackKt: CallbackKt<String>.() -> Unit) {
         if (dateErrorState.value == false) {
-            if (clientNameErrorState.value == false && phoneNumberErrorState.value == false)
+            if (clientNameErrorState.value == false && phoneNumberErrorState.value == false) {
                 clientRepository.putClient(clientName.value!!, phoneNumber.value!!) {
                     onSuccess = { clientIdName ->
                         bookingRepository.addBooking(clientIdName, startDate.value!!, endDate.value!!, selectedRoomsList) {
@@ -88,6 +89,11 @@ class AddBookingFragmentVM : BaseViewModel(), KoinComponent {
                         }
                     }
                 }
+            } else {
+                CallbackKt(callbackKt, InvalidParameterException("Client Error"))
+            }
+        } else {
+            CallbackKt(callbackKt, InvalidParameterException("Date error"))
         }
     }
 

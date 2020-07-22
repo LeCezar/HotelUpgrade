@@ -2,7 +2,7 @@
 
 <layout>
 
-    <data class="RoomDetailsBinding">
+    <data class="FragmentRoomDetailsBinding">
 
         <variable
             name="viewModel"
@@ -15,6 +15,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/app_background">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/details_room_toolbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@id/details_room_icon"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/details_room_icon"
+            app:navigationIcon="@drawable/ic_baseline_arrow" />
 
         <TextView
             android:id="@+id/details_room_name"
@@ -40,8 +49,9 @@
             android:transitionName="@{viewModel.selectedRoom.name + `roomImageView`}"
             app:layout_constraintBottom_toBottomOf="@id/details_room_name"
             app:layout_constraintEnd_toStartOf="@id/details_room_name"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/details_room_name" />
+            app:layout_constraintStart_toEndOf="@id/details_room_toolbar"
+            app:layout_constraintTop_toTopOf="@id/details_room_name"
+            tools:ignore="ContentDescription" />
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
@@ -51,12 +61,130 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/details_room_name">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/details_room_bookings_recycler_view"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/details_room_occupation_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/default_margin"
+                    android:layout_marginTop="@dimen/default_margin"
+                    android:background="@drawable/background_rounded_corners"
+                    android:fontFamily="@font/nunito_extrabold"
+                    android:paddingStart="@dimen/default_margin"
+                    android:paddingTop="@dimen/minimum_margin"
+                    android:paddingEnd="@dimen/default_margin"
+                    android:paddingBottom="@dimen/minimum_margin"
+                    android:text="@{viewModel.selectedRoom.occupationStatus.status}"
+                    android:textColor="@{viewModel.selectedRoom.getColorForOccupationStatus(context)}"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="OCCUPIED"
+                    tools:textColor="@color/black" />
+
+                <ViewSwitcher
+                    android:id="@+id/details_room_price_view_switcher"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/default_margin"
+                    app:layout_constraintStart_toStartOf="@id/details_room_occupation_status"
+                    app:layout_constraintTop_toBottomOf="@id/details_room_occupation_status">
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="64dp"
+                        android:drawableStart="@drawable/ic_money"
+                        android:drawablePadding="@dimen/default_margin"
+                        android:fontFamily="@font/nunito_semibold"
+                        android:gravity="center_vertical"
+                        android:paddingStart="@dimen/default_margin"
+                        android:paddingTop="@dimen/minimum_margin"
+                        android:paddingEnd="@dimen/default_margin"
+                        android:paddingBottom="@dimen/minimum_margin"
+                        android:text="@{viewModel.selectedRoomPrice}"
+                        android:textAlignment="gravity"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        tools:text="150" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/details_room_price_layout"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                        android:layout_width="160dp"
+                        android:layout_height="64dp"
+                        android:hint="New Price">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/details_room_price_input"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawableStart="@drawable/ic_money"
+                            android:drawablePadding="@dimen/default_margin"
+                            android:inputType="number"
+                            android:text="@={viewModel.selectedRoomPrice}"
+                            android:textAlignment="center"
+                            android:textColor="@color/black" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </ViewSwitcher>
+
+                <ViewSwitcher
+                    android:id="@+id/details_room_price_view_switcher_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/default_margin"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/details_room_price_view_switcher">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/details_room_edit_price_button"
+                        style="?attr/materialButtonOutlinedStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Edit Price" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/details_room_save_price_button"
+                        style="?attr/materialButtonOutlinedStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Save price"
+                        android:textColor="@color/ok_green" />
+                </ViewSwitcher>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="@dimen/default_margin"
+                    android:layout_marginTop="@dimen/minimum_margin"
+                    android:layout_marginEnd="@dimen/default_margin"
+                    android:background="@color/black"
+                    app:layout_constraintTop_toBottomOf="@id/details_room_price_view_switcher" />
+
+                <TextView
+                    android:id="@+id/details_room_bookings_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/default_margin"
+                    android:layout_marginTop="@dimen/default_margin"
+                    android:maxWidth="@dimen/room_text_max_width"
+                    android:text="Bookings"
+                    android:textColor="@color/black"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/details_room_price_view_switcher" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/details_room_bookings_recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/default_margin"
+                    app:layout_constraintTop_toBottomOf="@+id/details_room_bookings_text" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

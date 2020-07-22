@@ -4,7 +4,6 @@ import android.app.DatePickerDialog
 import android.view.View
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import com.google.firebase.crashlytics.internal.common.CommonUtils.hideKeyboard
 import com.lecezar.hotelupgrade.R
 import com.lecezar.hotelupgrade.databinding.AddBookingBinding
 import com.lecezar.hotelupgrade.models.Room

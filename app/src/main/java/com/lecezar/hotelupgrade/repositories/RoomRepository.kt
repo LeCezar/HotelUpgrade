@@ -188,6 +188,25 @@ class RoomRepository : FirebaseRepository() {
         }
     }
 
+    fun updateRoomPrice(
+        roomId: String,
+        roomPrice: Long,
+        callback: CallbackKt<String>.() -> Unit
+    ) {
+        firestore.collection(pathWithUser).document("/$roomId").update(
+            mapOf(
+                "price" to roomPrice
+            )
+        ).addOnCompleteListener {
+            if (it.isSuccessful) {
+                CallbackKt(callback, "Updated Room Price")
+            }
+            it.exception?.apply {
+                CallbackKt(callback, this)
+            }
+        }
+    }
+
     fun updateRoomStatuses(
         callback: CallbackKt<String>.() -> Unit
     ) {

@@ -26,7 +26,7 @@
             android:layout_margin="4dp"
             android:text="@{viewModel.second}"
             android:textColor="@color/black"
-            android:textSize="14sp"
+            android:textSize="12sp"
             android:textStyle="bold" />
     </FrameLayout>
 </layout>
