@@ -3,9 +3,8 @@ package com.lecezar.hotelupgrade.utils.base
 
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.snackbar.Snackbar
 
-class RecycleItemTouchHelper(swipeCallback: (poz: Int) -> Unit): ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.RIGHT) {
+class RecycleItemTouchHelper(swipeCallback: (poz: Int) -> Unit) : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
 
     var callback: (poz: Int) -> Unit = swipeCallback
 
@@ -15,5 +14,6 @@ class RecycleItemTouchHelper(swipeCallback: (poz: Int) -> Unit): ItemTouchHelper
 
     override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
         callback(viewHolder.adapterPosition)
+
     }
 }

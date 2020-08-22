@@ -13,6 +13,7 @@ import com.lecezar.hotelupgrade.models.Booking
 import com.lecezar.hotelupgrade.utils.base.BaseFragment
 import com.lecezar.hotelupgrade.utils.base.RecycleItemTouchHelper
 import com.lecezar.hotelupgrade.utils.makeToast
+import com.lecezar.hotelupgrade.utils.views.ConfirmActionDialog
 import kotlinx.android.synthetic.main.fragment_bookings_tab.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import kotlin.properties.Delegates
@@ -64,12 +65,21 @@ class BookingsTabFragment : BaseFragment<BookingsTabBinding, BookingsTabFragment
             }
         }
         ItemTouchHelper(RecycleItemTouchHelper {
-            (bookings_recycler_view?.adapter as BookingsAdapter).apply {
-                viewModel.deleteBooking(this.getItemAt(it).id) {
-                    onSuccess = {
-                        makeToast(this@BookingsTabFragment.requireContext(), "Deleted Booking!")
-                    }
-                    onFailure = {}
+            activity?.let { activity ->
+                (bookings_recycler_view?.adapter as BookingsAdapter).apply {
+                    ConfirmActionDialog("Delete booking ?",
+                        confirmCallback = {
+                            viewModel.deleteBooking(this.getItemAt(it).id) {
+                                onSuccess = {
+                                    makeToast(this@BookingsTabFragment.requireContext(), "Deleted Booking!")
+                                }
+                                onFailure = {}
+                            }
+                        },
+                        cancelCallback = {
+                            this.notifyItemChanged(it)
+                        }
+                    ).show(activity.supportFragmentManager, "Booking delete dialog")
                 }
             }
         }).attachToRecyclerView(bookings_recycler_view)

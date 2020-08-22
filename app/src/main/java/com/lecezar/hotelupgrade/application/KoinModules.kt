@@ -16,7 +16,7 @@ import com.lecezar.hotelupgrade.roomsFeature.RoomsFragmentVM
 import com.lecezar.hotelupgrade.roomsFeature.addrooms.AddRoomFragmentVM
 import com.lecezar.hotelupgrade.roomsFeature.roomdetails.RoomDetailsFragmentVM
 import com.lecezar.hotelupgrade.splashScreen.SplashFragmentVM
-import com.lecezar.hotelupgrade.utils.binding.FirebaseListenerManager
+import com.lecezar.hotelupgrade.utils.firebase.FirebaseListenerManager
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
@@ -40,11 +40,11 @@ object KoinModules {
     }
 
     private val apiModule = module {
+        single { FirebaseListenerManager() }
     }
 
     private val repoModule = module {
         single { HotelRepository() }
-        single { FirebaseListenerManager() }
         single { RoomRepository() }
         single { BookingRepository() }
         single { ClientRepository() }

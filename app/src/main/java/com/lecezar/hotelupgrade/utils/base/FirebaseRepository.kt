@@ -6,7 +6,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.functions.FirebaseFunctions
 import com.google.firebase.ktx.Firebase
-import com.lecezar.hotelupgrade.utils.binding.FirebaseListenerManager
+import com.lecezar.hotelupgrade.utils.firebase.FirebaseListenerManager
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 

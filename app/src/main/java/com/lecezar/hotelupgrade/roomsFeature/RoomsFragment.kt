@@ -12,12 +12,14 @@ import com.lecezar.hotelupgrade.models.Room
 import com.lecezar.hotelupgrade.utils.base.BaseFragment
 import com.lecezar.hotelupgrade.utils.base.RecycleItemTouchHelper
 import com.lecezar.hotelupgrade.utils.makeToast
+import com.lecezar.hotelupgrade.utils.views.ConfirmActionDialog
 import kotlinx.android.synthetic.main.fragment_rooms.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class RoomsFragment : BaseFragment<RoomsFragmentBinding, RoomsFragmentVM>(R.layout.fragment_rooms) {
     override val viewModel: RoomsFragmentVM by viewModel()
+
 
     override fun setupViews() {
         setOnClickListeners()
@@ -50,13 +52,23 @@ class RoomsFragment : BaseFragment<RoomsFragmentBinding, RoomsFragmentVM>(R.layo
             }
             layoutManager = LinearLayoutManager(this@RoomsFragment.context)
         }
+
         ItemTouchHelper(RecycleItemTouchHelper {
-            (rooms_recycler_view?.adapter as RoomsAdapter).apply {
-                viewModel.deleteRoom(this.getItemAt(it).id) {
-                    onSuccess = {
-                        makeToast(this@RoomsFragment.requireContext(), it)
-                    }
-                    onFailure = {}
+            activity?.let { activity ->
+                (rooms_recycler_view?.adapter as RoomsAdapter).apply {
+                    ConfirmActionDialog("Delete ${this.getItemAt(it).name} ?",
+                        confirmCallback = {
+                            viewModel.deleteRoom(this.getItemAt(it).id) {
+                                onSuccess = {
+                                    makeToast(this@RoomsFragment.requireContext(), it)
+                                }
+                                onFailure = {}
+                            }
+                        },
+                        cancelCallback = {
+                            this.notifyItemChanged(it)
+                        }
+                    ).show(activity.supportFragmentManager, "Rooms delete dialog")
                 }
             }
         }).attachToRecyclerView(rooms_recycler_view)

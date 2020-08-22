@@ -14,7 +14,6 @@ constructor(@LayoutRes private val layoutResource: Int) : AppCompatActivity() {
 
     protected val binding by activityBinding<BINDING>(layoutResource)
     protected abstract val viewModel: VIEW_MODEL
-//    var loadingDialog: LoadingDialog? = null
 
     @CallSuper
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,13 +22,11 @@ constructor(@LayoutRes private val layoutResource: Int) : AppCompatActivity() {
             it.lifecycleOwner = this
             it.setVariable(BR.viewModel, viewModel)
         }
-//        loadingDialog = LoadingDialog(this)
         setupViews()
     }
 
     override fun onDestroy() {
         super.onDestroy()
-//        loadingDialog = null
     }
 
     abstract fun setupViews()
